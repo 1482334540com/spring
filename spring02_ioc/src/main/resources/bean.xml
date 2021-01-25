@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- 配置user类的对象创建
+class 需要创建的对象的类路径
+id: context.getBean("user"); 给对象起一个标识 用于创建对象的时候用
+-->
+
+
+
+<bean id="student" class="com.maven.spring.bean.Student">
+    <!-- 注入数组类型 -->
+    <property name="courses">
+        <array>
+            <value>java课程</value>
+            <value>大数据</value>
+        </array>
+    </property>
+    <!-- 注入List集合类型 -->
+    <property name="students" >
+        <list>
+            <value>linux</value>
+            <value>运维工程师</value>
+        </list>
+    </property>
+<!--  注入Map集合类型-->
+    <property name="map">
+        <map>
+            <entry key="xiaoming" value="男"></entry>
+            <entry key="zhangsan" value="女"></entry>
+        </map>
+    </property>
+    <!--  注入Set集合类型-->
+    <property name="sets" >
+     <set>
+         <value>javaSe</value>
+         <value>javaEE</value>
+     </set>
+    </property>
+
+    <!-- 注入List集合类型 值的类型是对象-->
+    <property name="courseList">
+       <list>
+           <ref bean="course1"></ref>
+           <ref bean="course2"></ref>
+       </list>
+    </property>
+</bean>
+
+    <bean id="course1" class="com.maven.spring.bean.Course">
+         <property name="course" value="spring"></property>
+    </bean>
+
+    <bean id="course2" class="com.maven.spring.bean.Course">
+        <property name="course" value="mybatis"></property>
+    </bean>
+
+</beans>

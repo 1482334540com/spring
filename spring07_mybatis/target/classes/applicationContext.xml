@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+">
+<!-- 开启组件扫描   -->
+    <context:component-scan base-package="com.maven.spring"> </context:component-scan>
+
+
+<!--  指定外部jdbc配置文件的路径  -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+<!--配置数据库连接池-->
+    <bean id="myDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="driverClassName" value="${jdbc.drivers}"/>
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+    </bean>
+
+<!-- mybatis 中所提供的的sqlSessionBean类 这个类内部是创建sqlSessionFactory对象的 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+<!--  mybatis注入 把数据库连接池赋值给dataSource对象 -->
+        <property name="dataSource" ref="myDataSource"></property>
+<!--  把mybatis主配置文件注入给configLocation对象 用于去读取mybatis主配置文件的-->
+        <property name="configLocation" value="classpath:mybatis.xml"> </property>
+    </bean>
+
+<!--创建dao对象 在内部去调用getMapper 生成每个dao接口的代理对象  -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+<!-- 指定sqlSessionFactory对象的id-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"> </property>
+<!-- 指定一个包名 指定dao接口的包名 扫描这个包中的所有接口 得到每个dao接口的对象 把创建好的对象放到spring容器中 -->
+        <property name="basePackage" value="com.maven.spring.dao"></property>
+    </bean>
+
+<!--  创建service对象  -->
+    <bean id="userService"  class="com.maven.spring.service.Impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"> </property>
+    </bean>
+
+
+</beans>

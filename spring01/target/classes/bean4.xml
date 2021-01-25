@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--级联 bean-->
+    <bean id="emp" class="com.maven.spring.bean.Emp" > <!--创建Emp对象-->
+        <property name="name" value="张三"> </property> <!--给Emp对象属性赋值-->
+        <property name="sex" value="男"> </property>
+
+        <!--设置对象类型属性-->
+        <property name="dept"  ref="dept">  <!-- 创建Dep对象 --></property>
+        <property name="dept.name"  value="技术部">  <!-- 创建Dep对象 --></property>
+   </bean>
+
+    <bean id="dept" class="com.maven.spring.bean.Dept" > </bean>
+
+</beans>

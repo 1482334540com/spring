@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- 配置user类的对象创建
+class 需要创建的对象的类路径
+id: context.getBean("user"); 给对象起一个标识 用于创建对象的时候用
+-->
+    <bean id="user" class="com.maven.spring.bean.User"></bean>
+
+   <bean id="order" class="com.maven.spring.bean.Order">
+<!--  使用set给对象属性赋值-->
+        <property name="price" value="25"></property>
+        <property name="orderId" value="0258"></property>
+    </bean>
+
+
+
+    <bean id="book" class="com.maven.spring.bean.Book">
+        <!-- 使用有参构造方法给对象属性赋值 -->
+        <constructor-arg name="name" value="java入门"/>
+        <constructor-arg name="author" value="卡夫卡"/>
+    </bean>
+
+
+</beans>

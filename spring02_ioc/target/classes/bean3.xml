@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+<!--工厂bean 返回的类型可以和设置的类型不一致-->
+    <bean id="myBean" class="com.maven.spring.bean.MyBean">
+
+    </bean>
+<!-- 设置为多实例 -->
+    <bean id="book" class="com.maven.spring.bean.Book" scope="prototype" > </bean>
+</beans>
